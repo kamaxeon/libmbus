@@ -21,21 +21,15 @@ static int debug = 0;
 static int
 init_slaves(mbus_handle *handle)
 {
-    if (debug)
-        printf("%s: debug: sending init frame #1\n", __PRETTY_FUNCTION__);
+	int i;
+	// We send SND_NKE twice, maybe the first get lost    
+    for (i = 0; i < 2 ; i++) {
+        if (debug)
+            printf("%s: debug: sending init frame #%i\n", __PRETTY_FUNCTION__,i);
 
-    if (mbus_send_ping_frame(handle, MBUS_ADDRESS_NETWORK_LAYER, 1) == -1)
-        return 0;
-
-    //
-    // resend SND_NKE, maybe the first get lost
-    //
-
-    if (debug)
-        printf("%s: debug: sending init frame #2\n", __PRETTY_FUNCTION__);
-
-    if (mbus_send_ping_frame(handle, MBUS_ADDRESS_NETWORK_LAYER, 1) == -1)
-        return 0;
+        if (mbus_send_ping_frame(handle, MBUS_ADDRESS_NETWORK_LAYER, 1) == -1)
+            return 0;
+	}
 
     return 1;
 }
