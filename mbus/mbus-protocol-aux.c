@@ -20,8 +20,6 @@
 #include <ctype.h>
 #include <math.h>
 
-#define SECONDARY 1
-#define PRIMARY 0
 
 /*@ignore@*/
 #define MBUS_ERROR(...) fprintf (stderr, __VA_ARGS__)
@@ -2557,7 +2555,7 @@ int
 mbus_init_slaves(mbus_handle *handle, int type)
 {
     int address;
-    if (type == PRIMARY)
+    if (type == MBUS_PRIMARY)
         address = MBUS_ADDRESS_NETWORK_LAYER;
     else
         address = MBUS_ADDRESS_BROADCAST_NOREPLY; 

@@ -71,6 +71,10 @@
 extern "C" {
 #endif
 
+
+#define MBUS_SECONDARY 1
+#define MBUS_PRIMARY 0
+
 #define MBUS_PROBE_NOTHING   0
 #define MBUS_PROBE_SINGLE    1
 #define MBUS_PROBE_COLLISION 2
@@ -503,7 +507,7 @@ size_t mbus_hex2bin(unsigned char * dst, size_t dst_len, const unsigned char * s
  * Init slave to get really the beginning of the records
  *
  * @param handle      Initialized handle
- * @param type        PRIMARY or SECONDARY
+ * @param type        MBUS_PRIMARY or MBUS_SECONDARY
  *
  * @return zero when OK
  */
