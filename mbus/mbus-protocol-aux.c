@@ -2153,7 +2153,6 @@ mbus_sendrecv_request(mbus_handle *handle, int address, mbus_frame *reply, int m
 int
 mbus_send_ping_frame(mbus_handle *handle, int address, char purge_response)
 {
-    int retval = 0;
     mbus_frame *frame;
 
     if (mbus_is_primary_address(address) == 0)
@@ -2186,7 +2185,7 @@ mbus_send_ping_frame(mbus_handle *handle, int address, char purge_response)
     }
 
     mbus_frame_free(frame);
-    return retval;
+    return 0;
 }
 
 //------------------------------------------------------------------------------
