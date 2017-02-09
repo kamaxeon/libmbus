@@ -12,27 +12,10 @@
 
 #include <stdio.h>
 #include <mbus/mbus.h>
+#include <mbus/mbus-protocol-aux.h>
 
 static int debug = 0;
 
-//
-// init slave to get really the beginning of the records
-//
-static int
-init_slaves(mbus_handle *handle)
-{
-	int i;
-	// We send SND_NKE twice, maybe the first get lost    
-    for (i = 0; i < 2 ; i++) {
-        if (debug)
-            printf("%s: debug: sending init frame #%i\n", __PRETTY_FUNCTION__,i);
-
-        if (mbus_send_ping_frame(handle, MBUS_ADDRESS_NETWORK_LAYER, 1) == -1)
-            return 0;
-	}
-
-    return 1;
-}
 
 //------------------------------------------------------------------------------
 // Scan for devices using secondary addressing.
@@ -110,7 +93,7 @@ main(int argc, char **argv)
         return 1;
     }
 
-    if (init_slaves(handle) == 0)
+    if (mbus_init_slaves(handle) == 0)
     {
         mbus_disconnect(handle);
         mbus_context_free(handle);

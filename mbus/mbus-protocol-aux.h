@@ -499,6 +499,18 @@ int mbus_scan_2nd_address_range(mbus_handle * handle, int pos, char *addr_mask);
  */
 size_t mbus_hex2bin(unsigned char * dst, size_t dst_len, const unsigned char * src, size_t src_len);
 
+/**
+ * Init slave to get really the beginning of the records
+ *
+ * @param handle      Initialized handle
+ *
+ * @return zero when OK
+ */
+int mbus_init_slaves(mbus_handle *handle);
+
+
+
+
 #ifdef __cplusplus
 }
 #endif
