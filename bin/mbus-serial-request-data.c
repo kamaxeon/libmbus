@@ -12,7 +12,6 @@
 
 #include <stdio.h>
 #include <mbus/mbus.h>
-#include <mbus/mbus-protocol-aux.h>
 
 static int debug = 0;
 
