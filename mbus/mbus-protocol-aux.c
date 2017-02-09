@@ -2546,3 +2546,22 @@ mbus_hex2bin(unsigned char * dst, size_t dst_len, const unsigned char * src, siz
 
     return result;
 }
+
+//
+// init slave to get really the beginning of the records
+//
+int
+mbus_init_slaves(mbus_handle *handle)
+{
+	int i;
+	// We send SND_NKE twice, maybe the first get lost    
+    for (i = 0; i < 2 ; i++) {
+        if (debug)
+            printf("%s: debug: sending init frame #%i\n", __PRETTY_FUNCTION__,i);
+
+        if (mbus_send_ping_frame(handle, MBUS_ADDRESS_NETWORK_LAYER, 1) == -1)
+            return 0;
+	}
+
+    return 1;
+}
