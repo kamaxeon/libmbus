@@ -25,9 +25,7 @@ init_slaves(mbus_handle *handle)
         printf("%s: debug: sending init frame #1\n", __PRETTY_FUNCTION__);
 
     if (mbus_send_ping_frame(handle, MBUS_ADDRESS_NETWORK_LAYER, 1) == -1)
-    {
         return 0;
-    }
 
     //
     // resend SND_NKE, maybe the first get lost
@@ -37,9 +35,7 @@ init_slaves(mbus_handle *handle)
         printf("%s: debug: sending init frame #2\n", __PRETTY_FUNCTION__);
 
     if (mbus_send_ping_frame(handle, MBUS_ADDRESS_NETWORK_LAYER, 1) == -1)
-    {
         return 0;
-    }
 
     return 1;
 }
