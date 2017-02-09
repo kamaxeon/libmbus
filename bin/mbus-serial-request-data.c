@@ -92,7 +92,7 @@ main(int argc, char **argv)
         return 1;
     }
 
-    if (mbus_init_slaves(handle) == 0)
+    if (mbus_init_slaves(handle, PRIMARY) == 0)
     {
         mbus_disconnect(handle);
         mbus_context_free(handle);
