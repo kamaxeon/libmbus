@@ -20,6 +20,9 @@
 #include <ctype.h>
 #include <math.h>
 
+#define SECONDARY 1
+#define PRIMARY 0
+
 /*@ignore@*/
 #define MBUS_ERROR(...) fprintf (stderr, __VA_ARGS__)
 
@@ -2551,17 +2554,28 @@ mbus_hex2bin(unsigned char * dst, size_t dst_len, const unsigned char * src, siz
 // init slave to get really the beginning of the records
 //
 int
-mbus_init_slaves(mbus_handle *handle)
+mbus_init_slaves(mbus_handle *handle, int type)
 {
-	int i;
-	// We send SND_NKE twice, maybe the first get lost    
-    for (i = 0; i < 2 ; i++) {
-        if (debug)
-            printf("%s: debug: sending init frame #%i\n", __PRETTY_FUNCTION__,i);
+    int address;
+    if (type == PRIMARY)
+        address = MBUS_ADDRESS_NETWORK_LAYER;
+    else
+        address = MBUS_ADDRESS_BROADCAST_NOREPLY; 
+	
+    if (debug)
+        printf("%s: debug: sending init frame #1\n", __PRETTY_FUNCTION__);
 
-        if (mbus_send_ping_frame(handle, MBUS_ADDRESS_NETWORK_LAYER, 1) == -1)
-            return 0;
-	}
+    if (mbus_send_ping_frame(handle, MBUS_ADDRESS_NETWORK_LAYER, 1) == -1)
+        return 0;
+    //
+    // resend SND_NKE, maybe the first get lost
+    //
+    
+	if (debug)
+        printf("%s: debug: sending init frame #2\n", __PRETTY_FUNCTION__);
+
+    if (mbus_send_ping_frame(handle, address, 1) == -1)
+        return 0;
 
     return 1;
 }

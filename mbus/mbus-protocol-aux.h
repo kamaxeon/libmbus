@@ -503,10 +503,11 @@ size_t mbus_hex2bin(unsigned char * dst, size_t dst_len, const unsigned char * s
  * Init slave to get really the beginning of the records
  *
  * @param handle      Initialized handle
+ * @param type        PRIMARY or SECONDARY
  *
  * @return zero when OK
  */
-int mbus_init_slaves(mbus_handle *handle);
+int mbus_init_slaves(mbus_handle *handle, int type);
 
 
 
