@@ -136,7 +136,7 @@ main(int argc, char **argv)
         return 1;
     }
 
-    if (mbus_init_slaves(handle, MBUS_SECONDARY) == 0)
+    if (mbus_init_slaves(handle, ACCESS_BY_SECONDARY_ADDRESS) == 0)
     {
         free(addr_mask);
         return 1;

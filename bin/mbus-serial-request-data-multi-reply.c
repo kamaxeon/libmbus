@@ -102,7 +102,7 @@ main(int argc, char **argv)
         return 1;
     }
 
-    if (mbus_init_slaves(handle, MBUS_PRIMARY) == 0)
+    if (mbus_init_slaves(handle, ACCESS_BY_PRIMARY_ADDRESS) == 0)
     {
         mbus_disconnect(handle);
         mbus_context_free(handle);
