@@ -72,8 +72,8 @@ extern "C" {
 #endif
 
 
-#define MBUS_SECONDARY 1
-#define MBUS_PRIMARY 0
+#define ACCESS_BY_SECONDARY_ADDRESS 1
+#define ACCESS_BY_PRIMARY_ADDRESS 0
 
 #define MBUS_PROBE_NOTHING   0
 #define MBUS_PROBE_SINGLE    1
@@ -507,11 +507,11 @@ size_t mbus_hex2bin(unsigned char * dst, size_t dst_len, const unsigned char * s
  * Init slave to get really the beginning of the records
  *
  * @param handle      Initialized handle
- * @param type        MBUS_PRIMARY or MBUS_SECONDARY
+ * @param access        PRIMARY or SECONDARY
  *
  * @return zero when OK
  */
-int mbus_init_slaves(mbus_handle *handle, int type);
+int mbus_init_slaves(mbus_handle *handle, int access);
 
 
 

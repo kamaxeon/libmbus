@@ -2552,10 +2552,10 @@ mbus_hex2bin(unsigned char * dst, size_t dst_len, const unsigned char * src, siz
 // init slave to get really the beginning of the records
 //
 int
-mbus_init_slaves(mbus_handle *handle, int type)
+mbus_init_slaves(mbus_handle *handle, int access)
 {
     int address;
-    if (type == MBUS_PRIMARY)
+    if (access == ACCESS_BY_PRIMARY_ADDRESS)
         address = MBUS_ADDRESS_NETWORK_LAYER;
     else
         address = MBUS_ADDRESS_BROADCAST_NOREPLY; 
