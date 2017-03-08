@@ -20,6 +20,7 @@
 #include <ctype.h>
 #include <math.h>
 
+
 /*@ignore@*/
 #define MBUS_ERROR(...) fprintf (stderr, __VA_ARGS__)
 
@@ -2153,7 +2154,6 @@ mbus_sendrecv_request(mbus_handle *handle, int address, mbus_frame *reply, int m
 int
 mbus_send_ping_frame(mbus_handle *handle, int address, char purge_response)
 {
-    int retval = 0;
     mbus_frame *frame;
 
     if (mbus_is_primary_address(address) == 0)
@@ -2186,7 +2186,7 @@ mbus_send_ping_frame(mbus_handle *handle, int address, char purge_response)
     }
 
     mbus_frame_free(frame);
-    return retval;
+    return 0;
 }
 
 //------------------------------------------------------------------------------
@@ -2546,4 +2546,34 @@ mbus_hex2bin(unsigned char * dst, size_t dst_len, const unsigned char * src, siz
     }
 
     return result;
+}
+
+//
+// init slave to get really the beginning of the records
+//
+int
+mbus_init_slaves(mbus_handle *handle, int access)
+{
+    int address;
+    if (access == ACCESS_BY_PRIMARY_ADDRESS)
+        address = MBUS_ADDRESS_NETWORK_LAYER;
+    else
+        address = MBUS_ADDRESS_BROADCAST_NOREPLY; 
+	
+    if (debug)
+        printf("%s: debug: sending init frame #1\n", __PRETTY_FUNCTION__);
+
+    if (mbus_send_ping_frame(handle, MBUS_ADDRESS_NETWORK_LAYER, 1) == -1)
+        return 0;
+    //
+    // resend SND_NKE, maybe the first get lost
+    //
+    
+	if (debug)
+        printf("%s: debug: sending init frame #2\n", __PRETTY_FUNCTION__);
+
+    if (mbus_send_ping_frame(handle, address, 1) == -1)
+        return 0;
+
+    return 1;
 }

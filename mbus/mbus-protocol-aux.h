@@ -71,6 +71,10 @@
 extern "C" {
 #endif
 
+
+#define ACCESS_BY_SECONDARY_ADDRESS 1
+#define ACCESS_BY_PRIMARY_ADDRESS 0
+
 #define MBUS_PROBE_NOTHING   0
 #define MBUS_PROBE_SINGLE    1
 #define MBUS_PROBE_COLLISION 2
@@ -498,6 +502,19 @@ int mbus_scan_2nd_address_range(mbus_handle * handle, int pos, char *addr_mask);
  * @return byte count of successful converted values
  */
 size_t mbus_hex2bin(unsigned char * dst, size_t dst_len, const unsigned char * src, size_t src_len);
+
+/**
+ * Init slave to get really the beginning of the records
+ *
+ * @param handle      Initialized handle
+ * @param access        PRIMARY or SECONDARY
+ *
+ * @return zero when OK
+ */
+int mbus_init_slaves(mbus_handle *handle, int access);
+
+
+
 
 #ifdef __cplusplus
 }

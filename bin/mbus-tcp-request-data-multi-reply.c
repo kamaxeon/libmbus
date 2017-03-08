@@ -17,34 +17,7 @@ static int debug = 0;
 
 // Default value for the maximum number of frames
 #define MAXFRAMES 16
-//
-// init slave to get really the beginning of the records
-//
-static int
-init_slaves(mbus_handle *handle)
-{
-    if (debug)
-        printf("%s: debug: sending init frame #1\n", __PRETTY_FUNCTION__);
 
-    if (mbus_send_ping_frame(handle, MBUS_ADDRESS_NETWORK_LAYER, 1) == -1)
-    {
-        return 0;
-    }
-
-    //
-    // resend SND_NKE, maybe the first get lost
-    //
-
-    if (debug)
-        printf("%s: debug: sending init frame #2\n", __PRETTY_FUNCTION__);
-
-    if (mbus_send_ping_frame(handle, MBUS_ADDRESS_NETWORK_LAYER, 1) == -1)
-    {
-        return 0;
-    }
-
-    return 1;
-}
 
 //------------------------------------------------------------------------------
 // Wrapper for argument parsing errors
@@ -124,7 +97,7 @@ main(int argc, char **argv)
         return 1;
     }
 
-    if (init_slaves(handle) == 0)
+    if (mbus_init_slaves(handle, ACCESS_BY_PRIMARY_ADDRESS) == 0)
     {
         mbus_disconnect(handle);
         mbus_context_free(handle);
