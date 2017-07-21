@@ -24,6 +24,8 @@ B<mbus-tcp-request-data> [-d] host port mbus-address
 
 B<mbus-serial-request-data-multi-reply> [-d] [-b BAUDRATE] [-f FRAMES] device mbus-address
 
+B<mbus-serial-set-address> [-d] [-b BAUDRATE] device mbus-serial-number new-id
+
 B<mbus-tcp-request-data-multi-reply> [-d] [-f FRAMES] host port mbus-address
 
 B<mbus-serial-select-secondary> [-b BAUDRATE] device secondary-mbus-address
@@ -55,6 +57,8 @@ B<mbus-serial-select-secondary>, B<mbus-tcp-select-secondary> - perform single s
 address select to check what device responds.
 
 B<mbus-tcp-raw-send> - send a single raw hex frame to a MBus device.
+
+B<mbus-serial-set-address> - set primary addres for a mbus device.
 
 =head1 OPTIONS
 
@@ -132,6 +136,16 @@ For serial communication, the baudrate to which the device should be switched.
 =item B<file>
 
 Path to an file with hex values. 
+
+
+=item B<mbus-serial-number>
+
+Serial number of the mbus device
+
+=item B<new-id>
+
+New serial number of the mbus device
+
 
 =back
 
